@@ -1,0 +1,23 @@
+{
+  "name": "challenge-final-qa-xacademy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nachxg/challenge-final-qa-automation-xacademy-grupo5.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nachxg/challenge-final-qa-automation-xacademy-grupo5/issues"
+  },
+  "homepage": "https://github.com/nachxg/challenge-final-qa-automation-xacademy-grupo5#readme",
+  "devDependencies": {
+    "cypress": "^16.2.1"
+  }
+}
