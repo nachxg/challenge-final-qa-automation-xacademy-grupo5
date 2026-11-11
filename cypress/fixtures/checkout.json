@@ -1,0 +1,14 @@
+{
+    "billing": {
+        "street": "Test Street 123",
+        "city": "Test City",
+        "state": "Test State",
+        "country": "Test Country",
+        "postcode": "00000"
+    },
+    "payment": {
+        "method": "Bank Transfer",
+        "account_name": "Test Account",
+        "account_number": "12345"
+    }
+}
