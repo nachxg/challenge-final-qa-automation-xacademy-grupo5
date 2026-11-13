@@ -30,3 +30,10 @@ Cypress.Commands.add('completarPago', ({method, accountName, accountNumber}) => 
     cy.get('[data-test="account-number"]').clear().type(accountNumber)
     cy.get('[data-test="finish"]').click()
 })
+
+Cypress.Commands.add('buscarProducto', (termino) => {
+    cy.intercept('GET', '**/products/search?q=*').as('busqueda')
+    cy.get('[data-test="search-query"]').clear().type(termino)
+    cy.get('[data-test="search-submit"]').click()
+    cy.wait('@busqueda')
+})
