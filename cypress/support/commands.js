@@ -1,16 +1,15 @@
-Cypress.Commands.add('completarLogin', (email, password) => {
+Cypress.Commands.add('completarLogin', ({email, password}) => {
     cy.get('[data-test="email"]').clear().type(email)
     cy.get('[data-test="password"]').clear().type(password)
     cy.get('[data-test="login-submit"]').click()
 })
 
-Cypress.Commands.add('login', (email, password) => {
+Cypress.Commands.add('login', ({email, password}) => {
     cy.visit('/auth/login')
-    cy.completarLogin(email, password)
+    cy.completarLogin({email, password})
 })
 
 Cypress.Commands.add('agregarAlCarrito', (producto = 'product-1') => {
-    cy.visit('/')
     cy.get(`[data-test="${producto}"]`).click()
     cy.get('[data-test="add-to-cart"]').click()
     cy.get('[data-test="cart-quantity"]').should('be.visible')
@@ -29,4 +28,5 @@ Cypress.Commands.add('completarPago', ({method, accountName, accountNumber}) => 
     cy.get('[data-test="payment-method"]').select(method)
     cy.get('[data-test="account-name"]').clear().type(accountName)
     cy.get('[data-test="account-number"]').clear().type(accountNumber)
+    cy.get('[data-test="finish"]').click()
 })
