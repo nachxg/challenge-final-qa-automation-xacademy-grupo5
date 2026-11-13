@@ -1,6 +1,6 @@
 {
     "billing": {
-        "street": "Test Street 123",
+        "address": "Test Street 123",
         "city": "Test City",
         "state": "Test State",
         "country": "Test Country",
@@ -8,7 +8,7 @@
     },
     "payment": {
         "method": "Bank Transfer",
-        "account_name": "Test Account",
-        "account_number": "12345"
+        "accountName": "Test Account",
+        "accountNumber": "12345"
     }
 }

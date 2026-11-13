@@ -1,25 +1,32 @@
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+Cypress.Commands.add('completarLogin', (email, password) => {
+    cy.get('[data-test="email"]').clear().type(email)
+    cy.get('[data-test="password"]').clear().type(password)
+    cy.get('[data-test="login-submit"]').click()
+})
+
+Cypress.Commands.add('login', (email, password) => {
+    cy.visit('/auth/login')
+    cy.completarLogin(email, password)
+})
+
+Cypress.Commands.add('agregarAlCarrito', (producto = 'product-1') => {
+    cy.visit('/')
+    cy.get(`[data-test="${producto}"]`).click()
+    cy.get('[data-test="add-to-cart"]').click()
+    cy.get('[data-test="cart-quantity"]').should('be.visible')
+})
+
+Cypress.Commands.add('completarFacturacion', ({address, city, state, country, postcode}) => {
+    cy.get('[data-test="address"]').clear().type(address)
+    cy.get('[data-test="city"]').clear().type(city)
+    cy.get('[data-test="state"]').clear().type(state)
+    cy.get('[data-test="country"]').clear().type(country)
+    cy.get('[data-test="postcode"]').clear().type(postcode)
+    cy.get('[data-test="proceed-3"]').click()
+})
+
+Cypress.Commands.add('completarPago', ({method, accountName, accountNumber}) => {
+    cy.get('[data-test="payment-method"]').select(method)
+    cy.get('[data-test="account-name"]').clear().type(accountName)
+    cy.get('[data-test="account-number"]').clear().type(accountNumber)
+})
