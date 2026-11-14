@@ -1,3 +1,11 @@
+function esperarDatosUsuario() {
+    cy.wait('@datosUsuario').then(({ response }) => {
+        if (response.statusCode !== 200) {
+            esperarDatosUsuario()
+        }
+    })
+}
+
 describe('3.1 Compra exitosa', function () {
     beforeEach(() => {
         cy.fixture('users').as('users')
@@ -35,7 +43,9 @@ describe('3.1 Compra exitosa', function () {
         cy.contains('you are already logged in')
             .should('be.visible')
 
+        cy.intercept('GET', '**/users/me').as('datosUsuario')
         cy.get('[data-test="proceed-2"]').click()
+        esperarDatosUsuario() // Verifica que los datos precargados del usuario se escriban en los inputs, de lo contrario en ocasiones el .clear() actua antes y se encadenan los datos de prueba con los cargados.
 
         cy.completarFacturacion(billing)
 
@@ -46,7 +56,7 @@ describe('3.1 Compra exitosa', function () {
 
         cy.get('[data-test="finish"]').click()
 
-        cy.get('#order-confirmation')
+        cy.get('#order-confirmation', { timeout: 10000 })
             .should('contain', 'Thanks for your order! Your invoice number is INV-')
     })
 })
