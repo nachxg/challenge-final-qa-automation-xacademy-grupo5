@@ -1,14 +1,19 @@
 describe("3.6 Eliminar un producto del carrito", () => {
-  it("agrega un producto, lo elimina y el carrito queda vacío", () => {
+  it("TC-4: agrega un producto, lo elimina y el carrito queda vacío", () => {
     cy.visit("/");
-    cy.get('[data-test="product-1"] [data-test="product-name"]')
+    cy.agregarAlCarrito();
+
+    cy.get('[data-test="product-name"]')
       .invoke("text")
-      .then((texto) => {
-        const nombre = texto.trim();
-        cy.agregarAlCarrito("product-1");
-        cy.get('[data-test="nav-cart"]').click();
-        cy.get('[data-test="product-title"]').should("contain.text", nombre);
-      });
+      .then((texto) => texto.trim())
+      .as("nombreProducto");
+
+    cy.get('[data-test="nav-cart"]').click();
+
+    cy.get("@nombreProducto").then((nombre) => {
+      cy.get('[data-test="product-title"]').should("have.text", nombre);
+    });
+
     cy.get("tbody tr").first().find(".btn-danger").click();
     cy.get('[data-test="product-title"]').should("not.exist");
   });

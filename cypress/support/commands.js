@@ -9,8 +9,12 @@ Cypress.Commands.add('login', ({email, password}) => {
     cy.completarLogin({email, password})
 })
 
-Cypress.Commands.add('agregarAlCarrito', (producto = 'product-1') => {
-    cy.get(`[data-test="${producto}"]`).click()
+Cypress.Commands.add('agregarAlCarrito', (producto) => {
+    if (producto) {
+        cy.get(`[data-test="${producto}"]`).click()
+    } else {
+        cy.get('.card').not(':contains("Out of stock")').first().click()
+    }
     cy.get('[data-test="add-to-cart"]').click()
     cy.get('[data-test="cart-quantity"]').should('be.visible')
 })

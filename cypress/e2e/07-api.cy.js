@@ -1,7 +1,7 @@
 describe("3.7 Prueba de API", () => {
   const apiUrl = Cypress.expose("apiUrl");
 
-  it("lista productos y permite iniciar sesión por API", () => {
+  it("TC-5: lista productos y permite iniciar sesión por API", () => {
     cy.request("GET", `${apiUrl}/products`).then((res) => {
       expect(res.status).to.eq(200);
       expect(res.body.data).to.be.an("array").and.not.be.empty;
